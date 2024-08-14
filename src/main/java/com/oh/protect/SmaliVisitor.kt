@@ -48,11 +48,11 @@ class SmaliVisitor : SmaliParserBaseVisitor<SmaliData?>() {
         return super.visitFieldDef(ctx)
     }
 
-    override fun visitFieldStart(ctx: SmaliParser.FieldStartContext?): SmaliData? {
-        println("visitFieldStart(), ${ctx?.text}")
-        return super.visitFieldStart(ctx)
+    override fun visitFieldBlockStart(ctx: SmaliParser.FieldBlockStartContext?): SmaliData? {
+        println("visitFieldBlockStart(), ${ctx?.text}")
+        return super.visitFieldBlockStart(ctx)
     }
-
+    
     override fun visitMethod(ctx: SmaliParser.MethodContext?): SmaliData? {
         println("-------------------- visitMethod start --------------------")
         println(ctx?.text)
