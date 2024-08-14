@@ -53,6 +53,18 @@ public interface SmaliParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitField(SmaliParser.FieldContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SmaliParser#fieldBlockStart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFieldBlockStart(SmaliParser.FieldBlockStartContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SmaliParser#fieldDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFieldDef(SmaliParser.FieldDefContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SmaliParser#method}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

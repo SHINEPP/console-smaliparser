@@ -13,7 +13,9 @@ source              : SOURCE_DEF ;
 implements          : IMPLEMENTS_DEF ;
 annotation          : ANNOTATION_BLOCK ;
 
-field               : FIELD_BLOCK_START FIELD_BLOCK_LINE* FIELD_BLOCK_END ;
+field               : fieldBlockStart FIELD_BLOCK_LINE* FIELD_BLOCK_END | fieldDef;
+fieldBlockStart     : FIELD_BLOCK_START ;
+fieldDef            : FIELD_DEF ;
 
 method              : METHOD_BLOCK_START methodContent METHOD_BLOCK_END ;
 methodContent       : methodHead methodCode ;

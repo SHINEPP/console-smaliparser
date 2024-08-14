@@ -78,6 +78,26 @@ public interface SmaliParserListener extends ParseTreeListener {
 	 */
 	void exitField(SmaliParser.FieldContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SmaliParser#fieldBlockStart}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldBlockStart(SmaliParser.FieldBlockStartContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SmaliParser#fieldBlockStart}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldBlockStart(SmaliParser.FieldBlockStartContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SmaliParser#fieldDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldDef(SmaliParser.FieldDefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SmaliParser#fieldDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldDef(SmaliParser.FieldDefContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SmaliParser#method}.
 	 * @param ctx the parse tree
 	 */
