@@ -2,10 +2,15 @@ package com.oh.protect
 
 import com.oh.protect.smali.SmaliParser
 import com.oh.protect.smali.SmaliParserBaseVisitor
+import org.antlr.v4.runtime.tree.ParseTree
+import org.example.com.oh.protect.SmaliData
 
-class SmaliData
 
 class SmaliVisitor : SmaliParserBaseVisitor<SmaliData?>() {
+
+    override fun visit(tree: ParseTree?): SmaliData? {
+        return super.visit(tree)
+    }
 
     override fun visitClass(ctx: SmaliParser.ClassContext?): SmaliData? {
         println("visitClass(), ${ctx?.text}")
@@ -52,7 +57,7 @@ class SmaliVisitor : SmaliParserBaseVisitor<SmaliData?>() {
         println("visitFieldBlockStart(), ${ctx?.text}")
         return super.visitFieldBlockStart(ctx)
     }
-    
+
     override fun visitMethod(ctx: SmaliParser.MethodContext?): SmaliData? {
         println("-------------------- visitMethod start --------------------")
         println(ctx?.text)

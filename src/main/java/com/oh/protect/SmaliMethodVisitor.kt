@@ -3,8 +3,6 @@ package org.example.com.oh.protect
 import com.oh.protect.smalimethod.SmaliMethodParser
 import com.oh.protect.smalimethod.SmaliMethodParserBaseVisitor
 
-class SmaliData
-
 class SmaliMethodVisitor : SmaliMethodParserBaseVisitor<SmaliData?>() {
 
     override fun visitMethodHead(ctx: SmaliMethodParser.MethodHeadContext?): SmaliData? {

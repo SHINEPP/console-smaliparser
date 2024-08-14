@@ -17,7 +17,7 @@
 
 
 # static fields
-#.field public static final INSTANCE:Lcom/mars/opt/N;
+.field public static final INSTANCE:Lcom/mars/opt/N;
 
 # static fields
 .field public static final CREATOR:Landroid/os/Parcelable$Creator;
