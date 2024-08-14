@@ -1,4 +1,4 @@
-// Generated from /Users/zhouzhenliang/source/shine/console-apkprotector/src/main/antlr4/SmaliMethodParser.g4 by ANTLR 4.13.1
+// Generated from /Users/zhouzhenliang/source/shine/console-smaliparser/src/main/antlr4/SmaliMethodParser.g4 by ANTLR 4.13.1
 package com.oh.protect.smalimethod;
 
 import org.antlr.v4.runtime.ParserRuleContext;

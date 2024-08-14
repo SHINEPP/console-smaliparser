@@ -1,4 +1,4 @@
-// Generated from /Users/zhouzhenliang/source/shine/console-apkprotector/src/main/antlr4/Smali.g4 by ANTLR 4.13.1
+// Generated from /Users/zhouzhenliang/source/shine/console-smaliparser/src/main/antlr4/SmaliParser.g4 by ANTLR 4.13.1
 package com.oh.protect.smali;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  * This interface defines a complete listener for a parse tree produced by
  * {@link SmaliParser}.
  */
-public interface SmaliListener extends ParseTreeListener {
+public interface SmaliParserListener extends ParseTreeListener {
 	/**
 	 * Enter a parse tree produced by {@link SmaliParser#file}.
 	 * @param ctx the parse tree
@@ -78,26 +78,6 @@ public interface SmaliListener extends ParseTreeListener {
 	 */
 	void exitField(SmaliParser.FieldContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SmaliParser#fieldDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterFieldDef(SmaliParser.FieldDefContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SmaliParser#fieldDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitFieldDef(SmaliParser.FieldDefContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SmaliParser#fieldBlock}.
-	 * @param ctx the parse tree
-	 */
-	void enterFieldBlock(SmaliParser.FieldBlockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SmaliParser#fieldBlock}.
-	 * @param ctx the parse tree
-	 */
-	void exitFieldBlock(SmaliParser.FieldBlockContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SmaliParser#method}.
 	 * @param ctx the parse tree
 	 */
@@ -107,4 +87,34 @@ public interface SmaliListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMethod(SmaliParser.MethodContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SmaliParser#methodContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodContent(SmaliParser.MethodContentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SmaliParser#methodContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodContent(SmaliParser.MethodContentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SmaliParser#methodHead}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodHead(SmaliParser.MethodHeadContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SmaliParser#methodHead}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodHead(SmaliParser.MethodHeadContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SmaliParser#methodCode}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodCode(SmaliParser.MethodCodeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SmaliParser#methodCode}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodCode(SmaliParser.MethodCodeContext ctx);
 }

@@ -1,4 +1,4 @@
-// Generated from /Users/zhouzhenliang/source/shine/console-apkprotector/src/main/antlr4/Smali.g4 by ANTLR 4.13.1
+// Generated from /Users/zhouzhenliang/source/shine/console-smaliparser/src/main/antlr4/SmaliParser.g4 by ANTLR 4.13.1
 package com.oh.protect.smali;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  * @param <T> The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
-public interface SmaliVisitor<T> extends ParseTreeVisitor<T> {
+public interface SmaliParserVisitor<T> extends ParseTreeVisitor<T> {
 	/**
 	 * Visit a parse tree produced by {@link SmaliParser#file}.
 	 * @param ctx the parse tree
@@ -53,21 +53,27 @@ public interface SmaliVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitField(SmaliParser.FieldContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SmaliParser#fieldDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFieldDef(SmaliParser.FieldDefContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SmaliParser#fieldBlock}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFieldBlock(SmaliParser.FieldBlockContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SmaliParser#method}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMethod(SmaliParser.MethodContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SmaliParser#methodContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodContent(SmaliParser.MethodContentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SmaliParser#methodHead}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodHead(SmaliParser.MethodHeadContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SmaliParser#methodCode}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethodCode(SmaliParser.MethodCodeContext ctx);
 }

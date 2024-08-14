@@ -1,11 +1,11 @@
 package com.oh.protect
 
-import com.oh.protect.smali.SmaliBaseVisitor
 import com.oh.protect.smali.SmaliParser
+import com.oh.protect.smali.SmaliParserBaseVisitor
 
 class SmaliData
 
-class SmaliVisitor : SmaliBaseVisitor<SmaliData?>() {
+class SmaliVisitor : SmaliParserBaseVisitor<SmaliData?>() {
 
     override fun visitClass(ctx: SmaliParser.ClassContext?): SmaliData? {
         println("visitClass(), ${ctx?.text}")
@@ -28,22 +28,26 @@ class SmaliVisitor : SmaliBaseVisitor<SmaliData?>() {
     }
 
     override fun visitAnnotation(ctx: SmaliParser.AnnotationContext?): SmaliData? {
-        println("visitAnnotation(), ${ctx?.text}")
+        println("-------------------- visitAnnotation start --------------------")
+        println(ctx?.text)
+        println("-------------------- visitAnnotation end ----------------------")
+        println()
         return super.visitAnnotation(ctx)
     }
 
-    override fun visitFieldDef(ctx: SmaliParser.FieldDefContext?): SmaliData? {
-        println("visitFieldDef(), ${ctx?.text}")
-        return super.visitFieldDef(ctx)
-    }
-
-    override fun visitFieldBlock(ctx: SmaliParser.FieldBlockContext?): SmaliData? {
-        println("visitFieldBlock(), ${ctx?.text}")
-        return super.visitFieldBlock(ctx)
+    override fun visitField(ctx: SmaliParser.FieldContext?): SmaliData? {
+        println("-------------------- visitField start --------------------")
+        println(ctx?.text)
+        println("-------------------- visitField end ----------------------")
+        println()
+        return super.visitField(ctx)
     }
 
     override fun visitMethod(ctx: SmaliParser.MethodContext?): SmaliData? {
-        println("visitMethod(), ${ctx?.text}")
+        println("-------------------- visitMethod start --------------------")
+        println(ctx?.text)
+        println("-------------------- visitMethod end ----------------------")
+        println()
         return super.visitMethod(ctx)
     }
 }

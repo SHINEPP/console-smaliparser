@@ -43,5 +43,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "console-apkprotector"
+rootProject.name = "console-smaliparser"
 
