@@ -1,4 +1,4 @@
-// Generated from /Users/zhouzhenliang/source/shine/console-smaliparser/src/main/antlr4/SmaliParser.g4 by ANTLR 4.13.1
+// Generated from /Users/zhenliangzhou/source/shine/console-smaliparser/src/main/antlr4/SmaliParser.g4 by ANTLR 4.13.1
 package com.oh.protect.smali;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -41,6 +41,30 @@ public class SmaliParserBaseListener implements SmaliParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterClassAccessModify(SmaliParser.ClassAccessModifyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClassAccessModify(SmaliParser.ClassAccessModifyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterClassSignature(SmaliParser.ClassSignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClassSignature(SmaliParser.ClassSignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSuper(SmaliParser.SuperContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -48,6 +72,18 @@ public class SmaliParserBaseListener implements SmaliParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSuper(SmaliParser.SuperContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSuperSignature(SmaliParser.SuperSignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSuperSignature(SmaliParser.SuperSignatureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -72,6 +108,18 @@ public class SmaliParserBaseListener implements SmaliParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitImplements(SmaliParser.ImplementsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImplementsSignature(SmaliParser.ImplementsSignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImplementsSignature(SmaliParser.ImplementsSignatureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

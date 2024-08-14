@@ -2,10 +2,11 @@ lexer grammar SmaliLexer;
 
 COMMENT_LINE                : '#' ~[\r\n]* [\r\n]-> skip;
 
-fragment CLASS              : '.class' ;
-fragment SUPER              : '.super' ;
-fragment SOURCE             : '.source' ;
-fragment IMPLEMENTS         : '.implements' ;
+CLASS                       : '.class' ;
+SUPER                       : '.super' ;
+SOURCE                      : '.source' ~[\r\n]* ;
+IMPLEMENTS                  : '.implements' ;
+
 fragment ANNOTATION         : '.annotation' ;
 fragment ANNOTATION_END     : '.end annotation' ;
 fragment FIELD              : '.field' ;
@@ -14,20 +15,26 @@ fragment METHOD             : '.method' ;
 fragment METHOD_END         : '.end method' ;
 fragment CR                 : [\r\n] ;
 
-CLASS_DEF           : CLASS ~[\r\n]+ ;
-SUPER_DEF           : SUPER ~[\r\n]+ ;
-SOURCE_DEF          : SOURCE ~[\r\n]* ;
-IMPLEMENTS_DEF      : IMPLEMENTS ~[\r\n]+ ;
+// class
 ANNOTATION_BLOCK    : ANNOTATION .*? ANNOTATION_END ;
 
 // field
-FIELD_DEF           : FIELD ~[\r\n]+ ;
 FIELD_BLOCK_START   : FIELD_DEF [ \t\r\n]* ANNOTATION -> pushMode(FIELD_MODE) ;
+FIELD_DEF           : FIELD ~[\r\n]+ ;
 
 // method
 METHOD_BLOCK_START  : METHOD -> pushMode(METHOD_MODE) ;
 
-WS                  : [ \t\r\n] -> skip ;
+// keywords
+PUBLIC          : 'public' ;
+PRIVATE         : 'private' ;
+PROTECTED       : 'protected' ;
+STATIC          : 'static' ;
+FINAL           : 'final' ;
+
+SIGN_OBJECT     : 'L'([a-zA-Z_$][a-zA-Z0-9_$]*'/')*[a-zA-Z_$][a-zA-Z0-9_$]*';' ;
+
+WS              : [ \t\r\n] -> skip ;
 
 // ----------------- field mode -----------------
 mode FIELD_MODE;

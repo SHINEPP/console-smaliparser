@@ -13,13 +13,26 @@ class SmaliVisitor : SmaliParserBaseVisitor<SmaliData?>() {
     }
 
     override fun visitClass(ctx: SmaliParser.ClassContext?): SmaliData? {
-        println("visitClass(), ${ctx?.text}")
         return super.visitClass(ctx)
     }
 
+    override fun visitClassAccessModify(ctx: SmaliParser.ClassAccessModifyContext?): SmaliData? {
+        println("visitClassAccessModify(), ${ctx?.children?.joinToString(" ") { it.text }}")
+        return super.visitClassAccessModify(ctx)
+    }
+
+    override fun visitClassSignature(ctx: SmaliParser.ClassSignatureContext?): SmaliData? {
+        println("visitClassSignature(), ${ctx?.text}")
+        return super.visitClassSignature(ctx)
+    }
+
     override fun visitSuper(ctx: SmaliParser.SuperContext?): SmaliData? {
-        println("visitSuper(), ${ctx?.text}")
         return super.visitSuper(ctx)
+    }
+
+    override fun visitSuperSignature(ctx: SmaliParser.SuperSignatureContext?): SmaliData? {
+        println("visitSuperSignature(), ${ctx?.text}")
+        return super.visitSuperSignature(ctx)
     }
 
     override fun visitSource(ctx: SmaliParser.SourceContext?): SmaliData? {
@@ -28,8 +41,12 @@ class SmaliVisitor : SmaliParserBaseVisitor<SmaliData?>() {
     }
 
     override fun visitImplements(ctx: SmaliParser.ImplementsContext?): SmaliData? {
-        println("visitImplements(), ${ctx?.text}")
         return super.visitImplements(ctx)
+    }
+
+    override fun visitImplementsSignature(ctx: SmaliParser.ImplementsSignatureContext?): SmaliData? {
+        println("visitImplementsSignature(), ${ctx?.text}")
+        return super.visitImplementsSignature(ctx)
     }
 
     override fun visitAnnotation(ctx: SmaliParser.AnnotationContext?): SmaliData? {
