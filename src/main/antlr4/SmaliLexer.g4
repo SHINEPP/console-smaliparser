@@ -7,44 +7,43 @@ fragment FIELD_END          : '.end field' ;
 fragment METHOD             : '.method' ;
 fragment METHOD_END         : '.end method' ;
 fragment CR                 : [\r\n] ;
-
-COMMENT                     : '#' ~[\r\n]* [\r\n]-> skip;
-
-CLASS                       : '.class' ;
-SUPER                       : '.super' ;
-SOURCE                      : '.source' ~[\r\n]* ;
-IMPLEMENTS                  : '.implements' ;
+fragment NCR                : ~[\r\n] ;
 
 
-// class
-ANNOTATION_BLOCK    : ANNOTATION .*? ANNOTATION_END ;
+COMMENT                     : '#' NCR* -> skip;
+
+CLASS_DEF                   : '.class' NCR* ;
+SUPER_DEF                   : '.super' NCR*;
+SOURCE_DEF                  : '.source' NCR* ;
+IMPLEMENTS_DEF              : '.implements' NCR* ;
+
+
+// annotation
+ANNOTATION_BLOCK_START      : ANNOTATION -> pushMode(ANNOATION_MODE) ;
 
 // field
-FIELD_BLOCK_START   : FIELD_DEF [ \t\r\n]* ANNOTATION_BLOCK -> pushMode(FIELD_MODE) ;
-FIELD_DEF           : FIELD ~[\r\n]+ ;
+FIELD_BLOCK_START           : FIELD -> pushMode(FIELD_MODE) ;
 
 // method
-METHOD_BLOCK_START  : METHOD -> pushMode(METHOD_MODE) ;
+METHOD_BLOCK_START          : METHOD -> pushMode(METHOD_MODE) ;
 
-// keywords
-PUBLIC          : 'public' ;
-PRIVATE         : 'private' ;
-PROTECTED       : 'protected' ;
-STATIC          : 'static' ;
-FINAL           : 'final' ;
+WS                          : [ \t\r\n] -> skip ;
 
-SIGN_OBJECT     : 'L'([a-zA-Z_$][a-zA-Z0-9_$]*'/')*[a-zA-Z_$][a-zA-Z0-9_$]*';' ;
 
-WS              : [ \t\r\n] -> skip ;
+// ----------------- annoation mode -----------------
+mode ANNOATION_MODE;
+
+ANNOATION_BLOCK_END     : ANNOTATION_END -> popMode ;
+ANNOATION_BLOCK_LINE    : NCR* { !getText().startsWith(".end annotation") }? CR ;
 
 // ----------------- field mode -----------------
 mode FIELD_MODE;
 
-FIELD_BLOCK_END     : FIELD_END -> popMode ;
-FIELD_BLOCK_LINE    : ~[\r\n]* { !getText().startsWith(".end field") }? CR ;
+FIELD_BLOCK_END         : FIELD_END -> popMode ;
+FIELD_BLOCK_LINE        : NCR* { !getText().startsWith(".end field") }? CR ;
 
 // ----------------- method mode -----------------
 mode METHOD_MODE;
 
-METHOD_BLOCK_END    : METHOD_END -> popMode ;
-METHOD_BLOCK_LINE   : ~[\r\n]* { !getText().startsWith(".end method") }? CR ;
+METHOD_BLOCK_END        : METHOD_END -> popMode ;
+METHOD_BLOCK_LINE       : NCR* { !getText().startsWith(".end method") }? CR ;

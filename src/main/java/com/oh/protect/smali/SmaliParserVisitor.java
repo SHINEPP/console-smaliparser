@@ -1,4 +1,4 @@
-// Generated from /Users/zhenliangzhou/source/shine/console-smaliparser/src/main/antlr4/SmaliParser.g4 by ANTLR 4.13.1
+// Generated from /Users/zhouzhenliang/source/shine/console-smaliparser/src/main/antlr4/SmaliParser.g4 by ANTLR 4.13.1
 package com.oh.protect.smali;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -23,29 +23,11 @@ public interface SmaliParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClass(SmaliParser.ClassContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SmaliParser#classAccessModify}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClassAccessModify(SmaliParser.ClassAccessModifyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SmaliParser#classSignature}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClassSignature(SmaliParser.ClassSignatureContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SmaliParser#super}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSuper(SmaliParser.SuperContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SmaliParser#superSignature}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSuperSignature(SmaliParser.SuperSignatureContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SmaliParser#source}.
 	 * @param ctx the parse tree
@@ -59,12 +41,6 @@ public interface SmaliParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitImplements(SmaliParser.ImplementsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SmaliParser#implementsSignature}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitImplementsSignature(SmaliParser.ImplementsSignatureContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SmaliParser#annotation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -77,39 +53,9 @@ public interface SmaliParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitField(SmaliParser.FieldContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SmaliParser#fieldBlockStart}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFieldBlockStart(SmaliParser.FieldBlockStartContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SmaliParser#fieldDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFieldDef(SmaliParser.FieldDefContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link SmaliParser#method}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMethod(SmaliParser.MethodContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SmaliParser#methodContent}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMethodContent(SmaliParser.MethodContentContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SmaliParser#methodHead}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMethodHead(SmaliParser.MethodHeadContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SmaliParser#methodCode}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMethodCode(SmaliParser.MethodCodeContext ctx);
 }
