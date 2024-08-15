@@ -56,15 +56,7 @@ class SmaliVisitor : SmaliParserBaseVisitor<SmaliData?>() {
         println()
         return super.visitAnnotation(ctx)
     }
-
-    override fun visitField(ctx: SmaliParser.FieldContext?): SmaliData? {
-        println("-------------------- visitField start --------------------")
-        println(ctx?.text)
-        println("-------------------- visitField end ----------------------")
-        println()
-        return super.visitField(ctx)
-    }
-
+    
     override fun visitFieldDef(ctx: SmaliParser.FieldDefContext?): SmaliData? {
         println("visitFieldDef(), ${ctx?.text}")
         return super.visitFieldDef(ctx)

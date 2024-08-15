@@ -15,12 +15,12 @@ class SmaliReader {
         val parser = SmaliParser(tokens)
         val smaliTree = parser.file()
 
-        println("====================== token start ======================")
+        /*println("====================== token start ======================")
         for (token in tokens.tokens) {
             println("token = ${token.text}")
         }
         println("====================== token end ======================")
-        println()
+        println()*/
 
         println("====================== tree start ======================")
         val visitor = SmaliVisitor()

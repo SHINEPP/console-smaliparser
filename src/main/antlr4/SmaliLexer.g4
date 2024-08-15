@@ -1,12 +1,5 @@
 lexer grammar SmaliLexer;
 
-COMMENT_LINE                : '#' ~[\r\n]* [\r\n]-> skip;
-
-CLASS                       : '.class' ;
-SUPER                       : '.super' ;
-SOURCE                      : '.source' ~[\r\n]* ;
-IMPLEMENTS                  : '.implements' ;
-
 fragment ANNOTATION         : '.annotation' ;
 fragment ANNOTATION_END     : '.end annotation' ;
 fragment FIELD              : '.field' ;
@@ -15,11 +8,19 @@ fragment METHOD             : '.method' ;
 fragment METHOD_END         : '.end method' ;
 fragment CR                 : [\r\n] ;
 
+COMMENT                     : '#' ~[\r\n]* [\r\n]-> skip;
+
+CLASS                       : '.class' ;
+SUPER                       : '.super' ;
+SOURCE                      : '.source' ~[\r\n]* ;
+IMPLEMENTS                  : '.implements' ;
+
+
 // class
 ANNOTATION_BLOCK    : ANNOTATION .*? ANNOTATION_END ;
 
 // field
-FIELD_BLOCK_START   : FIELD_DEF [ \t\r\n]* ANNOTATION -> pushMode(FIELD_MODE) ;
+FIELD_BLOCK_START   : FIELD_DEF [ \t\r\n]* ANNOTATION_BLOCK -> pushMode(FIELD_MODE) ;
 FIELD_DEF           : FIELD ~[\r\n]+ ;
 
 // method
