@@ -4,10 +4,14 @@ import com.android.tools.smali.baksmali.Baksmali
 import com.android.tools.smali.baksmali.BaksmaliOptions
 import com.android.tools.smali.dexlib2.DexFileFactory
 import com.android.tools.smali.dexlib2.Opcodes
+import com.android.tools.smali.smali.Smali
+import com.android.tools.smali.smali.SmaliOptions
 import java.io.File
 import kotlin.math.min
 
 class DexProcessor {
+
+    private val jobCount = min(Runtime.getRuntime().availableProcessors(), 6)
 
     /**
      *  dex转smali
@@ -29,5 +33,17 @@ class DexProcessor {
         options.registerInfo = 0
         options.inlineResolver = null
         Baksmali.disassembleDexFile(dexFile, outDir, jobs, options)
+    }
+
+    /**
+     *  smali转dex
+     */
+    fun smaliToDex(smaliDir: File, dex: File) {
+        val opcodes = Opcodes.getDefault()
+        val smaliOptions = SmaliOptions()
+        smaliOptions.jobs = jobCount
+        smaliOptions.apiLevel = opcodes.api
+        smaliOptions.outputDexFile = dex.path
+        Smali.assemble(smaliOptions, smaliDir.path)
     }
 }

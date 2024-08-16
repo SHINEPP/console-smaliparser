@@ -1,11 +1,13 @@
 package com.oh.protect.parser
 
+import java.io.File
+
 object SmaliProcessor {
 
-    fun process(inPath: String, outPath: String) {
-        val reader = SmaliReader(inPath)
+    fun process(inFile: File, outFile: File) {
+        val reader = SmaliReader(inFile)
         val smali = reader.read()
-        val writer = SmaliWriter(smali, outPath)
-        writer.write()
+        val writer = SmaliWriter(smali)
+        writer.write(outFile)
     }
 }

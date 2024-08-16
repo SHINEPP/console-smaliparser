@@ -2,13 +2,9 @@ package com.oh.protect.parser
 
 import java.io.File
 
-class SmaliWriter(private val smali: Smali, private val path: String) {
+class SmaliWriter(private val smali: Smali) {
 
-    fun write() {
-        if (path.isEmpty()) {
-            return
-        }
-        val file = File(path)
+    fun write(file: File) {
         file.parentFile?.mkdirs()
         file.writeText(getSmaliText())
     }

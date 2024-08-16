@@ -13,4 +13,12 @@ class DexProcessorTest {
         val outDir = File("$rootDir/classes")
         DexProcessor().dexToSmali(dex, outDir)
     }
+
+    @Test
+    fun smaliToDex() {
+        val rootDir = "/Users/zhouzhenliang/Desktop/zz_protector/temp"
+        val smaliDir = File("$rootDir/classes")
+        val outDex = File("$rootDir/output_classes.dex")
+        DexProcessor().smaliToDex(smaliDir, outDex)
+    }
 }
