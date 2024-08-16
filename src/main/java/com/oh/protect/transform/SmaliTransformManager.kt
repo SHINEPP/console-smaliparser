@@ -1,4 +1,4 @@
-package org.example.com.oh.protect.transform
+package com.oh.protect.transform
 
 object SmaliTransformManager {
 

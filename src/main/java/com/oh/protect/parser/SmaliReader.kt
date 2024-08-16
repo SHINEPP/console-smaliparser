@@ -1,11 +1,11 @@
-package org.example.com.oh.protect.parser
+package com.oh.protect.parser
 
 import com.oh.protect.smali.SmaliLexer
 import com.oh.protect.smali.SmaliParser
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
-import org.example.com.oh.protect.common.LexerErrorHandler
-import org.example.com.oh.protect.common.PaserErrorHandler
+import com.oh.protect.common.LexerErrorHandler
+import com.oh.protect.common.PaserErrorHandler
 
 class SmaliReader(private val path: String) {
 

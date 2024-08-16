@@ -1,6 +1,6 @@
 package com.oh.protect.parser
 
-import org.example.com.oh.protect.parser.SmaliProcessor
+import com.oh.protect.parser.SmaliProcessor
 import org.junit.jupiter.api.Test
 
 class SmaliProcessorTest {

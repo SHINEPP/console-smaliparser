@@ -1,4 +1,4 @@
-package com.oh.protect
+package com.oh.protect.dex
 
 import com.android.tools.smali.baksmali.Baksmali
 import com.android.tools.smali.baksmali.BaksmaliOptions

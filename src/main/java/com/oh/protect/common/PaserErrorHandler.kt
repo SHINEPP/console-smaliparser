@@ -1,4 +1,4 @@
-package org.example.com.oh.protect.common
+package com.oh.protect.common
 
 import org.antlr.v4.runtime.BaseErrorListener
 import org.antlr.v4.runtime.RecognitionException

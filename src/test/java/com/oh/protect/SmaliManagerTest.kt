@@ -1,9 +1,6 @@
 package com.oh.protect
 
-import org.example.com.oh.protect.SmaliManager
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 class SmaliManagerTest {
 

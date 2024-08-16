@@ -1,13 +1,12 @@
-package org.example.com.oh.protect
+package com.oh.protect
 
-import org.example.com.oh.protect.parser.SmaliProcessor
+import com.oh.protect.parser.SmaliProcessor
 import java.io.File
 
 object SmaliManager {
 
     fun travel(dir: String) {
-        val fileTree = File(dir).walk()
-        fileTree
+        File(dir).walk()
             .filter { it.isFile && it.extension == "smali" }
             .forEach {
                 handleSmali(it.path)

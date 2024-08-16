@@ -1,5 +1,6 @@
 package com.oh.protect
 
+import com.oh.protect.dex.DexProcessor
 import org.junit.jupiter.api.Test
 import java.io.File
 

@@ -1,4 +1,4 @@
-package org.example.com.oh.protect.parser
+package com.oh.protect.parser
 
 import java.io.File
 

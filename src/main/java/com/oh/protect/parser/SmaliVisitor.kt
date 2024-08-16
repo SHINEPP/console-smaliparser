@@ -1,4 +1,4 @@
-package org.example.com.oh.protect.parser
+package com.oh.protect.parser
 
 import com.oh.protect.smali.SmaliParser
 import com.oh.protect.smali.SmaliParserBaseVisitor

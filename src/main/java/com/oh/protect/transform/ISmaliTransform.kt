@@ -1,6 +1,6 @@
-package org.example.com.oh.protect.transform
+package com.oh.protect.transform
 
-import org.example.com.oh.protect.parser.Smali
+import com.oh.protect.parser.Smali
 
 interface ISmaliTransform {
 

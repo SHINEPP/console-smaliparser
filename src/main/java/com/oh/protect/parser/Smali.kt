@@ -1,4 +1,4 @@
-package org.example.com.oh.protect.parser
+package com.oh.protect.parser
 
 class Smali(
     val classDef: String,

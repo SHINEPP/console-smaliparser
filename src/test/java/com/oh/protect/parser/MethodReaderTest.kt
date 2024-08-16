@@ -1,6 +1,6 @@
 package com.oh.protect.parser
 
-import org.example.com.oh.protect.parser.MethodReader
+import com.oh.protect.parser.MethodReader
 import org.junit.jupiter.api.Test
 
 class MethodReaderTest {
