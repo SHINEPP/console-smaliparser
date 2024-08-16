@@ -5,9 +5,9 @@ package org.example.com.oh.protect.parser
  */
 object SmaliProcessor {
 
-    fun process(path: String) {
-        val reader = SmaliReader(path)
-        val writer = SmaliWriter(reader.read())
+    fun process(inPath: String, outPath: String) {
+        val reader = SmaliReader(inPath)
+        val writer = SmaliWriter(reader.read(), outPath)
         writer.write()
     }
 }

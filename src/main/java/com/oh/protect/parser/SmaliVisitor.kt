@@ -4,7 +4,7 @@ import com.oh.protect.smali.SmaliParser
 import com.oh.protect.smali.SmaliParserBaseVisitor
 
 
-class SmaliVisitor : SmaliParserBaseVisitor<VisitData?>() {
+class SmaliVisitor : SmaliParserBaseVisitor<Int?>() {
 
     private var classDef = ""
     private var superDef = ""
@@ -14,8 +14,8 @@ class SmaliVisitor : SmaliParserBaseVisitor<VisitData?>() {
     private val fields = ArrayList<String>()
     private val methods = ArrayList<String>()
 
-    fun getSmaliClass(): SmaliClass {
-        return SmaliClass(
+    fun crateSmaliClass(): Smali {
+        return Smali(
             classDef = classDef,
             superDef = superDef,
             sourceDef = sourceDef,
@@ -26,37 +26,37 @@ class SmaliVisitor : SmaliParserBaseVisitor<VisitData?>() {
         )
     }
 
-    override fun visitClass(ctx: SmaliParser.ClassContext?): VisitData? {
+    override fun visitClass(ctx: SmaliParser.ClassContext?): Int? {
         classDef = ctx?.text ?: ""
         return super.visitClass(ctx)
     }
 
-    override fun visitSuper(ctx: SmaliParser.SuperContext?): VisitData? {
+    override fun visitSuper(ctx: SmaliParser.SuperContext?): Int? {
         superDef = ctx?.text ?: ""
         return super.visitSuper(ctx)
     }
 
-    override fun visitSource(ctx: SmaliParser.SourceContext?): VisitData? {
+    override fun visitSource(ctx: SmaliParser.SourceContext?): Int? {
         sourceDef = ctx?.text ?: ""
         return super.visitSource(ctx)
     }
 
-    override fun visitImplements(ctx: SmaliParser.ImplementsContext?): VisitData? {
+    override fun visitImplements(ctx: SmaliParser.ImplementsContext?): Int? {
         implements.add(ctx?.text ?: "")
         return super.visitImplements(ctx)
     }
 
-    override fun visitAnnotation(ctx: SmaliParser.AnnotationContext?): VisitData? {
+    override fun visitAnnotation(ctx: SmaliParser.AnnotationContext?): Int? {
         annotations.add(ctx?.text ?: "")
         return super.visitAnnotation(ctx)
     }
 
-    override fun visitField(ctx: SmaliParser.FieldContext?): VisitData? {
+    override fun visitField(ctx: SmaliParser.FieldContext?): Int? {
         fields.add(ctx?.text ?: "")
         return super.visitField(ctx)
     }
 
-    override fun visitMethod(ctx: SmaliParser.MethodContext?): VisitData? {
+    override fun visitMethod(ctx: SmaliParser.MethodContext?): Int? {
         methods.add(ctx?.text ?: "")
         return super.visitMethod(ctx)
     }

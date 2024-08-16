@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.*
 
 class SmaliReader(private val path: String) {
 
-    fun read(): SmaliClass {
+    fun read(): Smali {
         val charStreams = CharStreams.fromFileName(path)
         val lexer = SmaliLexer(charStreams)
         lexer.removeErrorListeners()
@@ -19,8 +19,7 @@ class SmaliReader(private val path: String) {
 
         val visitor = SmaliVisitor()
         visitor.visit(parser.file())
-
-        return visitor.getSmaliClass()
+        return visitor.crateSmaliClass()
     }
 
     class LexerErrorHandler : BaseErrorListener() {

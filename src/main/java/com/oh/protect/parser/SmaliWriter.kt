@@ -1,10 +1,17 @@
 package org.example.com.oh.protect.parser
 
-class SmaliWriter(private val smali: SmaliClass) {
+import java.io.File
+
+class SmaliWriter(private val smali: Smali, private val path: String) {
 
     fun write() {
-        val text = getSmaliClassInfo() + getSmaliImplements() + getSmaliAnnotations() + getSmaliFields() + getSmaliMethods()
-        //println(text)
+        val file = File(path)
+        file.parentFile?.mkdirs()
+        file.writeText(getSmaliText())
+    }
+
+    private fun getSmaliText(): String {
+        return getSmaliClassInfo() + getSmaliImplements() + getSmaliAnnotations() + getSmaliFields() + getSmaliMethods()
     }
 
     private fun getSmaliClassInfo(): String {
