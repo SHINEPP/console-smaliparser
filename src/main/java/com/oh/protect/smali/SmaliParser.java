@@ -18,9 +18,9 @@ public class SmaliParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		COMMENT=1, CLASS_DEF=2, SUPER_DEF=3, SOURCE_DEF=4, IMPLEMENTS_DEF=5, ANNOTATION_BLOCK_START=6, 
-		FIELD_BLOCK_START=7, METHOD_BLOCK_START=8, WS=9, ANNOATION_BLOCK_END=10, 
-		ANNOATION_BLOCK_LINE=11, FIELD_BLOCK_END=12, FIELD_BLOCK_LINE=13, METHOD_BLOCK_END=14, 
-		METHOD_BLOCK_LINE=15;
+		FIELD_BLOCK_START=7, FIELD_DEF=8, FIELD_HEAD=9, METHOD_BLOCK_START=10, 
+		WS=11, ANNOATION_BLOCK_END=12, ANNOATION_BLOCK_LINE=13, FIELD_BLOCK_END=14, 
+		FIELD_BLOCK_LINE=15, METHOD_BLOCK_END=16, METHOD_BLOCK_LINE=17;
 	public static final int
 		RULE_file = 0, RULE_class = 1, RULE_super = 2, RULE_source = 3, RULE_implements = 4, 
 		RULE_annotation = 5, RULE_field = 6, RULE_method = 7;
@@ -40,9 +40,9 @@ public class SmaliParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "COMMENT", "CLASS_DEF", "SUPER_DEF", "SOURCE_DEF", "IMPLEMENTS_DEF", 
-			"ANNOTATION_BLOCK_START", "FIELD_BLOCK_START", "METHOD_BLOCK_START", 
-			"WS", "ANNOATION_BLOCK_END", "ANNOATION_BLOCK_LINE", "FIELD_BLOCK_END", 
-			"FIELD_BLOCK_LINE", "METHOD_BLOCK_END", "METHOD_BLOCK_LINE"
+			"ANNOTATION_BLOCK_START", "FIELD_BLOCK_START", "FIELD_DEF", "FIELD_HEAD", 
+			"METHOD_BLOCK_START", "WS", "ANNOATION_BLOCK_END", "ANNOATION_BLOCK_LINE", 
+			"FIELD_BLOCK_END", "FIELD_BLOCK_LINE", "METHOD_BLOCK_END", "METHOD_BLOCK_LINE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -195,7 +195,7 @@ public class SmaliParser extends Parser {
 			setState(34);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==FIELD_BLOCK_START) {
+			while (_la==FIELD_BLOCK_START || _la==FIELD_DEF) {
 				{
 				{
 				setState(31);
@@ -480,6 +480,7 @@ public class SmaliParser extends Parser {
 		public TerminalNode FIELD_BLOCK_LINE(int i) {
 			return getToken(SmaliParser.FIELD_BLOCK_LINE, i);
 		}
+		public TerminalNode FIELD_DEF() { return getToken(SmaliParser.FIELD_DEF, 0); }
 		public FieldContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -504,26 +505,41 @@ public class SmaliParser extends Parser {
 		enterRule(_localctx, 12, RULE_field);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(62);
-			match(FIELD_BLOCK_START);
-			setState(66);
+			setState(71);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==FIELD_BLOCK_LINE) {
+			switch (_input.LA(1)) {
+			case FIELD_BLOCK_START:
+				enterOuterAlt(_localctx, 1);
 				{
-				{
-				setState(63);
-				match(FIELD_BLOCK_LINE);
-				}
-				}
-				setState(68);
+				setState(62);
+				match(FIELD_BLOCK_START);
+				setState(66);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			}
-			setState(69);
-			match(FIELD_BLOCK_END);
+				while (_la==FIELD_BLOCK_LINE) {
+					{
+					{
+					setState(63);
+					match(FIELD_BLOCK_LINE);
+					}
+					}
+					setState(68);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				setState(69);
+				match(FIELD_BLOCK_END);
+				}
+				break;
+			case FIELD_DEF:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(70);
+				match(FIELD_DEF);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -571,23 +587,23 @@ public class SmaliParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(71);
+			setState(73);
 			match(METHOD_BLOCK_START);
-			setState(75);
+			setState(77);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==METHOD_BLOCK_LINE) {
 				{
 				{
-				setState(72);
+				setState(74);
 				match(METHOD_BLOCK_LINE);
 				}
 				}
-				setState(77);
+				setState(79);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(78);
+			setState(80);
 			match(METHOD_BLOCK_END);
 			}
 		}
@@ -603,7 +619,7 @@ public class SmaliParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u000fQ\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u0011S\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0001"+
 		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0005\u0000\u0015\b\u0000\n"+
@@ -614,41 +630,42 @@ public class SmaliParser extends Parser {
 		"\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0005\u0001\u0005\u0005"+
 		"\u00058\b\u0005\n\u0005\f\u0005;\t\u0005\u0001\u0005\u0001\u0005\u0001"+
 		"\u0006\u0001\u0006\u0005\u0006A\b\u0006\n\u0006\f\u0006D\t\u0006\u0001"+
-		"\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0005\u0007J\b\u0007\n\u0007"+
-		"\f\u0007M\t\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0000\u0000\b\u0000"+
-		"\u0002\u0004\u0006\b\n\f\u000e\u0000\u0000O\u0000\u0010\u0001\u0000\u0000"+
-		"\u0000\u0002-\u0001\u0000\u0000\u0000\u0004/\u0001\u0000\u0000\u0000\u0006"+
-		"1\u0001\u0000\u0000\u0000\b3\u0001\u0000\u0000\u0000\n5\u0001\u0000\u0000"+
-		"\u0000\f>\u0001\u0000\u0000\u0000\u000eG\u0001\u0000\u0000\u0000\u0010"+
-		"\u0011\u0003\u0002\u0001\u0000\u0011\u0012\u0003\u0004\u0002\u0000\u0012"+
-		"\u0016\u0003\u0006\u0003\u0000\u0013\u0015\u0003\b\u0004\u0000\u0014\u0013"+
-		"\u0001\u0000\u0000\u0000\u0015\u0018\u0001\u0000\u0000\u0000\u0016\u0014"+
-		"\u0001\u0000\u0000\u0000\u0016\u0017\u0001\u0000\u0000\u0000\u0017\u001c"+
-		"\u0001\u0000\u0000\u0000\u0018\u0016\u0001\u0000\u0000\u0000\u0019\u001b"+
-		"\u0003\n\u0005\u0000\u001a\u0019\u0001\u0000\u0000\u0000\u001b\u001e\u0001"+
-		"\u0000\u0000\u0000\u001c\u001a\u0001\u0000\u0000\u0000\u001c\u001d\u0001"+
-		"\u0000\u0000\u0000\u001d\"\u0001\u0000\u0000\u0000\u001e\u001c\u0001\u0000"+
-		"\u0000\u0000\u001f!\u0003\f\u0006\u0000 \u001f\u0001\u0000\u0000\u0000"+
-		"!$\u0001\u0000\u0000\u0000\" \u0001\u0000\u0000\u0000\"#\u0001\u0000\u0000"+
-		"\u0000#(\u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000\u0000%\'\u0003\u000e"+
-		"\u0007\u0000&%\u0001\u0000\u0000\u0000\'*\u0001\u0000\u0000\u0000(&\u0001"+
-		"\u0000\u0000\u0000()\u0001\u0000\u0000\u0000)+\u0001\u0000\u0000\u0000"+
-		"*(\u0001\u0000\u0000\u0000+,\u0005\u0000\u0000\u0001,\u0001\u0001\u0000"+
-		"\u0000\u0000-.\u0005\u0002\u0000\u0000.\u0003\u0001\u0000\u0000\u0000"+
-		"/0\u0005\u0003\u0000\u00000\u0005\u0001\u0000\u0000\u000012\u0005\u0004"+
-		"\u0000\u00002\u0007\u0001\u0000\u0000\u000034\u0005\u0005\u0000\u0000"+
-		"4\t\u0001\u0000\u0000\u000059\u0005\u0006\u0000\u000068\u0005\u000b\u0000"+
-		"\u000076\u0001\u0000\u0000\u00008;\u0001\u0000\u0000\u000097\u0001\u0000"+
-		"\u0000\u00009:\u0001\u0000\u0000\u0000:<\u0001\u0000\u0000\u0000;9\u0001"+
-		"\u0000\u0000\u0000<=\u0005\n\u0000\u0000=\u000b\u0001\u0000\u0000\u0000"+
-		">B\u0005\u0007\u0000\u0000?A\u0005\r\u0000\u0000@?\u0001\u0000\u0000\u0000"+
-		"AD\u0001\u0000\u0000\u0000B@\u0001\u0000\u0000\u0000BC\u0001\u0000\u0000"+
-		"\u0000CE\u0001\u0000\u0000\u0000DB\u0001\u0000\u0000\u0000EF\u0005\f\u0000"+
-		"\u0000F\r\u0001\u0000\u0000\u0000GK\u0005\b\u0000\u0000HJ\u0005\u000f"+
-		"\u0000\u0000IH\u0001\u0000\u0000\u0000JM\u0001\u0000\u0000\u0000KI\u0001"+
-		"\u0000\u0000\u0000KL\u0001\u0000\u0000\u0000LN\u0001\u0000\u0000\u0000"+
-		"MK\u0001\u0000\u0000\u0000NO\u0005\u000e\u0000\u0000O\u000f\u0001\u0000"+
-		"\u0000\u0000\u0007\u0016\u001c\"(9BK";
+		"\u0006\u0001\u0006\u0003\u0006H\b\u0006\u0001\u0007\u0001\u0007\u0005"+
+		"\u0007L\b\u0007\n\u0007\f\u0007O\t\u0007\u0001\u0007\u0001\u0007\u0001"+
+		"\u0007\u0000\u0000\b\u0000\u0002\u0004\u0006\b\n\f\u000e\u0000\u0000R"+
+		"\u0000\u0010\u0001\u0000\u0000\u0000\u0002-\u0001\u0000\u0000\u0000\u0004"+
+		"/\u0001\u0000\u0000\u0000\u00061\u0001\u0000\u0000\u0000\b3\u0001\u0000"+
+		"\u0000\u0000\n5\u0001\u0000\u0000\u0000\fG\u0001\u0000\u0000\u0000\u000e"+
+		"I\u0001\u0000\u0000\u0000\u0010\u0011\u0003\u0002\u0001\u0000\u0011\u0012"+
+		"\u0003\u0004\u0002\u0000\u0012\u0016\u0003\u0006\u0003\u0000\u0013\u0015"+
+		"\u0003\b\u0004\u0000\u0014\u0013\u0001\u0000\u0000\u0000\u0015\u0018\u0001"+
+		"\u0000\u0000\u0000\u0016\u0014\u0001\u0000\u0000\u0000\u0016\u0017\u0001"+
+		"\u0000\u0000\u0000\u0017\u001c\u0001\u0000\u0000\u0000\u0018\u0016\u0001"+
+		"\u0000\u0000\u0000\u0019\u001b\u0003\n\u0005\u0000\u001a\u0019\u0001\u0000"+
+		"\u0000\u0000\u001b\u001e\u0001\u0000\u0000\u0000\u001c\u001a\u0001\u0000"+
+		"\u0000\u0000\u001c\u001d\u0001\u0000\u0000\u0000\u001d\"\u0001\u0000\u0000"+
+		"\u0000\u001e\u001c\u0001\u0000\u0000\u0000\u001f!\u0003\f\u0006\u0000"+
+		" \u001f\u0001\u0000\u0000\u0000!$\u0001\u0000\u0000\u0000\" \u0001\u0000"+
+		"\u0000\u0000\"#\u0001\u0000\u0000\u0000#(\u0001\u0000\u0000\u0000$\"\u0001"+
+		"\u0000\u0000\u0000%\'\u0003\u000e\u0007\u0000&%\u0001\u0000\u0000\u0000"+
+		"\'*\u0001\u0000\u0000\u0000(&\u0001\u0000\u0000\u0000()\u0001\u0000\u0000"+
+		"\u0000)+\u0001\u0000\u0000\u0000*(\u0001\u0000\u0000\u0000+,\u0005\u0000"+
+		"\u0000\u0001,\u0001\u0001\u0000\u0000\u0000-.\u0005\u0002\u0000\u0000"+
+		".\u0003\u0001\u0000\u0000\u0000/0\u0005\u0003\u0000\u00000\u0005\u0001"+
+		"\u0000\u0000\u000012\u0005\u0004\u0000\u00002\u0007\u0001\u0000\u0000"+
+		"\u000034\u0005\u0005\u0000\u00004\t\u0001\u0000\u0000\u000059\u0005\u0006"+
+		"\u0000\u000068\u0005\r\u0000\u000076\u0001\u0000\u0000\u00008;\u0001\u0000"+
+		"\u0000\u000097\u0001\u0000\u0000\u00009:\u0001\u0000\u0000\u0000:<\u0001"+
+		"\u0000\u0000\u0000;9\u0001\u0000\u0000\u0000<=\u0005\f\u0000\u0000=\u000b"+
+		"\u0001\u0000\u0000\u0000>B\u0005\u0007\u0000\u0000?A\u0005\u000f\u0000"+
+		"\u0000@?\u0001\u0000\u0000\u0000AD\u0001\u0000\u0000\u0000B@\u0001\u0000"+
+		"\u0000\u0000BC\u0001\u0000\u0000\u0000CE\u0001\u0000\u0000\u0000DB\u0001"+
+		"\u0000\u0000\u0000EH\u0005\u000e\u0000\u0000FH\u0005\b\u0000\u0000G>\u0001"+
+		"\u0000\u0000\u0000GF\u0001\u0000\u0000\u0000H\r\u0001\u0000\u0000\u0000"+
+		"IM\u0005\n\u0000\u0000JL\u0005\u0011\u0000\u0000KJ\u0001\u0000\u0000\u0000"+
+		"LO\u0001\u0000\u0000\u0000MK\u0001\u0000\u0000\u0000MN\u0001\u0000\u0000"+
+		"\u0000NP\u0001\u0000\u0000\u0000OM\u0001\u0000\u0000\u0000PQ\u0005\u0010"+
+		"\u0000\u0000Q\u000f\u0001\u0000\u0000\u0000\b\u0016\u001c\"(9BGM";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

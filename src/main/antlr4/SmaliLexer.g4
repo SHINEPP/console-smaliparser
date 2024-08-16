@@ -22,7 +22,9 @@ IMPLEMENTS_DEF              : '.implements' NCR* ;
 ANNOTATION_BLOCK_START      : ANNOTATION -> pushMode(ANNOATION_MODE) ;
 
 // field
-FIELD_BLOCK_START           : FIELD -> pushMode(FIELD_MODE) ;
+FIELD_BLOCK_START           : FIELD_DEF [ \t]+ ANNOTATION -> pushMode(FIELD_MODE) ;
+FIELD_DEF                   : FIELD_HEAD CR;
+FIELD_HEAD                  : FIELD NCR+ ;
 
 // method
 METHOD_BLOCK_START          : METHOD -> pushMode(METHOD_MODE) ;
