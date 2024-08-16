@@ -5,6 +5,9 @@ import java.io.File
 class SmaliWriter(private val smali: Smali, private val path: String) {
 
     fun write() {
+        if (path.isEmpty()) {
+            return
+        }
         val file = File(path)
         file.parentFile?.mkdirs()
         file.writeText(getSmaliText())

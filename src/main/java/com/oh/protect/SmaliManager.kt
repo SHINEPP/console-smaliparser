@@ -16,6 +16,6 @@ object SmaliManager {
 
     private fun handleSmali(path: String) {
         println("handleSmali(), path = $path")
-        SmaliProcessor.process(path)
+        SmaliProcessor.process(path, "")
     }
 }

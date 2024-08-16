@@ -11,7 +11,7 @@ class SmaliProcessorTest {
         println()
         println("$file:")
         println("----------------------- smali start -----------------------")
-        SmaliProcessor.process(file)
+        SmaliProcessor.process(file, "")
         println("----------------------- smali end -------------------------")
     }
 }

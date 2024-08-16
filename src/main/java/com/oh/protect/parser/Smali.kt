@@ -7,10 +7,13 @@ class Smali(
     val implements: List<String>,
     val annotations: List<String>,
     val fields: List<String>,
-    val methods: List<String>) {
+    val methods: List<Method>) {
 
-
-    fun getMethodName(): String {
-
-    }
+    class Method(
+        val method: String,
+        val methodIdentifiers: List<String>,
+        var methodName: String,
+        var paramsSignature: String,
+        var returnSignature: String
+    )
 }

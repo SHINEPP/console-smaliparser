@@ -22,7 +22,7 @@ class SmaliVisitor : SmaliParserBaseVisitor<Int?>() {
             implements = implements,
             annotations = annotations,
             fields = fields,
-            methods = methods
+            methods = methods.map { MethodReader(it.substringBefore("\n")).read() }
         )
     }
 
