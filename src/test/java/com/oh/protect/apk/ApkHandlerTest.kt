@@ -8,7 +8,7 @@ class ApkHandlerTest {
 
     @Test
     fun execute() {
-        val apk = "/Users/zhouzhenliang/source/shine/lib-daemongp/app/build/outputs/apk/superapp/release/app-superapp-release.apk"
+        val apk = "/Users/zhenliangzhou/Desktop/temp/app-release.apk"
         println("=========================================")
         ApkHandler(apk).execute()
         println("=========================================")

@@ -1,5 +1,6 @@
 package com.oh.protect.apk
 
+import com.oh.protect.apk.zip.ZipHandlerFactory
 import com.oh.protect.dex.DexProcessor
 import com.oh.protect.io.inputStream
 import java.io.File
@@ -109,16 +110,16 @@ class ApkHandler(apk: String) {
 
     private fun serializeApk() {
         val outApk = File(buildOutputApkDir, apkFile.name)
-        ZipOutputStream(outApk.outputStream()).use { outputStram ->
+        val handlers = ZipHandlerFactory.createHandlers()
+        ZipOutputStream(outApk.outputStream()).use { outputStream ->
             ZipFile(apkFile).use {
                 for (entry in it.entries()) {
-                    val name = entry.name
-                    val matcher = pattern.matcher(name)
+                    val matcher = pattern.matcher(entry.name)
                     if (matcher.find()) {
                         continue
                     }
-                    outputStram.putNextEntry(ZipEntry(name))
-                    it.inputStream(name).copyTo(outputStram)
+                    ZipHandlerFactory.getHandler(handlers, entry)
+                        .processZipEntry(entry, it.getInputStream(entry), outputStream)
                 }
             }
 
@@ -126,24 +127,23 @@ class ApkHandler(apk: String) {
             buildOutputClassesDir.walk()
                 .filter { it.isFile && it.extension == EXTENSION_DEX }
                 .forEach {
-
-                    outputStram.putNextEntry(ZipEntry(transformClassName(index++)))
-                    it.inputStream().copyTo(outputStram)
+                    val entry = ZipEntry(transformClassName(index++))
+                    ZipHandlerFactory.getHandler(handlers, entry)
+                        .processZipEntry(entry, it.inputStream(), outputStream)
                 }
+            
             buildOutputClassesDaemonDir.walk()
                 .filter { it.isFile && it.extension == EXTENSION_DEX }
                 .forEach {
-                    outputStram.putNextEntry(ZipEntry(transformClassName(index++)))
-                    it.inputStream().copyTo(outputStram)
+                    val entry = ZipEntry(transformClassName(index++))
+                    ZipHandlerFactory.getHandler(handlers, entry)
+                        .processZipEntry(entry, it.inputStream(), outputStream)
                 }
         }
     }
 
     private fun transformClassName(index: Int): String {
         assert(index >= 1)
-        if (index == 1) {
-            return "classes.dex"
-        }
-        return "classes$index"
+        return "classes${if (index == 1) "" else "$index"}.dex"
     }
 }
