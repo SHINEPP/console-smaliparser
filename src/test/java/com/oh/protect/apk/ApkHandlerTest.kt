@@ -9,8 +9,8 @@ class ApkHandlerTest {
     @Test
     fun execute() {
         val apk = "/Users/zhenliangzhou/Desktop/temp/app-release.apk"
-        println("=========================================")
+        println("================= start =================")
         ApkHandler(apk).execute()
-        println("=========================================")
+        println("================= end ===================")
     }
 }

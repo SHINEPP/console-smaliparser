@@ -48,11 +48,13 @@ class ApkHandler(apk: String) {
     }
 
     fun execute() {
+        println("start")
         extractClassesDex()
         transformDexToSmali()
-        filterDaemonSmali()
-        transformClassToDex()
+        filterDynamicSmali()
+        transformSmaliToDex()
         serializeApk()
+        println("finished")
     }
 
     private fun extractClassesDex() {
@@ -72,11 +74,13 @@ class ApkHandler(apk: String) {
         buildClassesDir.walk()
             .filter { it.isFile && it.extension == EXTENSION_DEX }
             .forEach {
+                println("dex2smali: ${it.name}")
                 DexProcessor().dexToSmali(it, File(buildSmaliDir, it.nameWithoutExtension))
             }
     }
 
-    private fun filterDaemonSmali() {
+    private fun filterDynamicSmali() {
+        println("filter dynamic smali")
         buildSmaliDir.listFiles()?.forEach { dir ->
             dir.walk()
                 .filter { it.isFile && it.extension == EXTENSION_SMALI }
@@ -89,7 +93,7 @@ class ApkHandler(apk: String) {
 
                     val subPath = arrayOf(dir.name, classPath.replace('.', File.separatorChar) + ".$EXTENSION_SMALI")
                         .joinToString(File.separator)
-                    val newSmali = if (isDaemonSmali(classPath)) {
+                    val newSmali = if (isDynamicSmali(classPath)) {
                         File(buildSmaliDynamicDir, subPath)
                     } else {
                         File(buildSmaliAppDir, subPath)
@@ -100,21 +104,24 @@ class ApkHandler(apk: String) {
         }
     }
 
-    private fun isDaemonSmali(classPath: String): Boolean {
+    private fun isDynamicSmali(classPath: String): Boolean {
         return classPath.startsWith("com.oh.master.")
                 || classPath.startsWith("com.miqt.demo.")
     }
 
-    private fun transformClassToDex() {
+    private fun transformSmaliToDex() {
         buildSmaliAppDir.listFiles()?.forEach { dir ->
+            println("smali2dex: app/${dir.name}")
             DexProcessor().smaliToDex(dir, File(buildOutputClassesDir, dir.name + ".$EXTENSION_DEX"))
         }
         buildSmaliDynamicDir.listFiles()?.forEach { dir ->
+            println("smali2dex: dynamic/${dir.name}")
             DexProcessor().smaliToDex(dir, File(buildOutputClassesDynamicDir, dir.name + ".$EXTENSION_DEX"))
         }
     }
 
     private fun serializeApk() {
+        println("serialize apk")
         val outApk = File(buildOutputApkDir, apkFile.name)
         val handlers = ZipHandlerFactory.createHandlers()
         ZipOutputStream(outApk.outputStream()).use { outputStream ->
