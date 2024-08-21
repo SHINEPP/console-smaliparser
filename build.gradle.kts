@@ -15,7 +15,7 @@ dependencies {
     implementation("org.antlr:antlr4:4.13.1")
 
     // r8 mapping
-    implementation("com.guardsquare:proguard-core:9.0.1")
+    implementation("com.guardsquare:proguard-core-tools:9.1.5")
 
     // test
     testImplementation(kotlin("test"))
