@@ -22,9 +22,9 @@ class ApkHandler(apk: String) {
     private val buildSmaliDir = File(buildDir, "smali")
     private val buildSmaliAppDir = File(buildDir, "smali_app")
     private val buildSmaliDynamicDir = File(buildDir, "smali_dynamic")
-    private val buildOutputClassesDir = File(buildDir, "output_classes")
-    private val buildOutputClassesDynamicDir = File(buildDir, "output_classes_dynamic")
-    private val buildOutputApkDir = File(buildDir, "output_apk")
+    private val outputClassesDir = File(buildDir, "output_classes")
+    private val outputClassesDynamicDir = File(buildDir, "output_classes_dynamic")
+    private val outputApkDir = File(buildDir, "output_apk")
 
     private val pattern = Pattern.compile("^classes(\\d*)\\.dex\$")
 
@@ -33,18 +33,18 @@ class ApkHandler(apk: String) {
         buildSmaliDir.deleteRecursively()
         buildSmaliAppDir.deleteRecursively()
         buildSmaliDynamicDir.deleteRecursively()
-        buildOutputClassesDir.deleteRecursively()
-        buildOutputClassesDynamicDir.deleteRecursively()
-        buildOutputApkDir.deleteRecursively()
+        outputClassesDir.deleteRecursively()
+        outputClassesDynamicDir.deleteRecursively()
+        outputApkDir.deleteRecursively()
 
         buildDir.mkdirs()
         buildClassesDir.mkdirs()
         buildSmaliDir.mkdirs()
         buildSmaliAppDir.mkdirs()
         buildSmaliDynamicDir.mkdirs()
-        buildOutputClassesDir.mkdirs()
-        buildOutputClassesDynamicDir.mkdirs()
-        buildOutputApkDir.mkdirs()
+        outputClassesDir.mkdirs()
+        outputClassesDynamicDir.mkdirs()
+        outputApkDir.mkdirs()
     }
 
     fun execute() {
@@ -112,17 +112,17 @@ class ApkHandler(apk: String) {
     private fun transformSmaliToDex() {
         buildSmaliAppDir.listFiles()?.forEach { dir ->
             println("smali2dex: app/${dir.name}")
-            DexProcessor().smaliToDex(dir, File(buildOutputClassesDir, dir.name + ".$EXTENSION_DEX"))
+            DexProcessor().smaliToDex(dir, File(outputClassesDir, dir.name + ".$EXTENSION_DEX"))
         }
         buildSmaliDynamicDir.listFiles()?.forEach { dir ->
             println("smali2dex: dynamic/${dir.name}")
-            DexProcessor().smaliToDex(dir, File(buildOutputClassesDynamicDir, dir.name + ".$EXTENSION_DEX"))
+            DexProcessor().smaliToDex(dir, File(outputClassesDynamicDir, dir.name + ".$EXTENSION_DEX"))
         }
     }
 
     private fun serializeApk() {
         println("serialize apk")
-        val outApk = File(buildOutputApkDir, apkFile.name)
+        val outApk = File(outputApkDir, apkFile.name)
         val handlers = ZipHandlerFactory.createHandlers()
         ZipOutputStream(outApk.outputStream()).use { outputStream ->
             ZipFile(apkFile).use {
@@ -137,7 +137,7 @@ class ApkHandler(apk: String) {
             }
 
             var index = 1
-            buildOutputClassesDir.walk()
+            outputClassesDir.walk()
                 .filter { it.isFile && it.extension == EXTENSION_DEX }
                 .forEach {
                     val entry = ZipEntry(transformClassName(index++))
@@ -145,7 +145,7 @@ class ApkHandler(apk: String) {
                         .processZipEntry(entry, it.inputStream(), outputStream)
                 }
 
-            buildOutputClassesDynamicDir.walk()
+            outputClassesDynamicDir.walk()
                 .filter { it.isFile && it.extension == EXTENSION_DEX }
                 .forEach {
                     val entry = ZipEntry(transformClassName(index++))
