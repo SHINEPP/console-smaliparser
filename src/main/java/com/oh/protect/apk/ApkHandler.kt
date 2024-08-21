@@ -91,8 +91,7 @@ class ApkHandler(apk: String) {
                         .substringBeforeLast(".$EXTENSION_SMALI")
                         .replace(File.separatorChar, '.')
 
-                    val subPath = arrayOf(dir.name, classPath.replace('.', File.separatorChar) + ".$EXTENSION_SMALI")
-                        .joinToString(File.separator)
+                    val subPath = dir.name + File.separatorChar + classPath.replace('.', File.separatorChar) + ".$EXTENSION_SMALI"
                     val newSmali = if (isDynamicSmali(classPath)) {
                         File(buildSmaliDynamicDir, subPath)
                     } else {
