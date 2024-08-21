@@ -20,9 +20,10 @@ class ApkHandler(apk: String) {
     private val buildDir = File(apkFile.parentFile, "build")
     private val buildClassesDir = File(buildDir, "classes")
     private val buildSmaliDir = File(buildDir, "smali")
-    private val buildSmaliDamonDir = File(buildDir, "smali_daemon")
+    private val buildSmaliAppDir = File(buildDir, "smali_app")
+    private val buildSmaliDynamicDir = File(buildDir, "smali_dynamic")
     private val buildOutputClassesDir = File(buildDir, "output_classes")
-    private val buildOutputClassesDaemonDir = File(buildDir, "output_classes_daemon")
+    private val buildOutputClassesDynamicDir = File(buildDir, "output_classes_dynamic")
     private val buildOutputApkDir = File(buildDir, "output_apk")
 
     private val pattern = Pattern.compile("^classes(\\d*)\\.dex\$")
@@ -30,17 +31,19 @@ class ApkHandler(apk: String) {
     init {
         buildClassesDir.deleteRecursively()
         buildSmaliDir.deleteRecursively()
-        buildSmaliDamonDir.deleteRecursively()
+        buildSmaliAppDir.deleteRecursively()
+        buildSmaliDynamicDir.deleteRecursively()
         buildOutputClassesDir.deleteRecursively()
-        buildOutputClassesDaemonDir.deleteRecursively()
+        buildOutputClassesDynamicDir.deleteRecursively()
         buildOutputApkDir.deleteRecursively()
 
         buildDir.mkdirs()
         buildClassesDir.mkdirs()
         buildSmaliDir.mkdirs()
-        buildSmaliDamonDir.mkdirs()
+        buildSmaliAppDir.mkdirs()
+        buildSmaliDynamicDir.mkdirs()
         buildOutputClassesDir.mkdirs()
-        buildOutputClassesDaemonDir.mkdirs()
+        buildOutputClassesDynamicDir.mkdirs()
         buildOutputApkDir.mkdirs()
     }
 
@@ -83,28 +86,31 @@ class ApkHandler(apk: String) {
                         .trim(File.separatorChar)
                         .substringBeforeLast(".$EXTENSION_SMALI")
                         .replace(File.separatorChar, '.')
-                    if (isDaemonSmali(classPath)) {
-                        println(classPath)
-                        val subPath = arrayOf(dir.name, classPath.replace('.', File.separatorChar) + ".$EXTENSION_SMALI")
-                            .joinToString(File.separator)
-                        val newSmali = File(buildSmaliDamonDir, subPath)
-                        newSmali.parentFile.mkdirs()
-                        smali.inputStream().copyTo(newSmali.outputStream())
+
+                    val subPath = arrayOf(dir.name, classPath.replace('.', File.separatorChar) + ".$EXTENSION_SMALI")
+                        .joinToString(File.separator)
+                    val newSmali = if (isDaemonSmali(classPath)) {
+                        File(buildSmaliDynamicDir, subPath)
+                    } else {
+                        File(buildSmaliAppDir, subPath)
                     }
+                    newSmali.parentFile.mkdirs()
+                    smali.inputStream().copyTo(newSmali.outputStream())
                 }
         }
     }
 
     private fun isDaemonSmali(classPath: String): Boolean {
         return classPath.startsWith("com.oh.master.")
+                || classPath.startsWith("com.miqt.demo.")
     }
 
     private fun transformClassToDex() {
-        buildSmaliDir.listFiles()?.forEach { dir ->
+        buildSmaliAppDir.listFiles()?.forEach { dir ->
             DexProcessor().smaliToDex(dir, File(buildOutputClassesDir, dir.name + ".$EXTENSION_DEX"))
         }
-        buildSmaliDamonDir.listFiles()?.forEach { dir ->
-            DexProcessor().smaliToDex(dir, File(buildOutputClassesDaemonDir, dir.name + ".$EXTENSION_DEX"))
+        buildSmaliDynamicDir.listFiles()?.forEach { dir ->
+            DexProcessor().smaliToDex(dir, File(buildOutputClassesDynamicDir, dir.name + ".$EXTENSION_DEX"))
         }
     }
 
@@ -131,8 +137,8 @@ class ApkHandler(apk: String) {
                     ZipHandlerFactory.getHandler(handlers, entry)
                         .processZipEntry(entry, it.inputStream(), outputStream)
                 }
-            
-            buildOutputClassesDaemonDir.walk()
+
+            buildOutputClassesDynamicDir.walk()
                 .filter { it.isFile && it.extension == EXTENSION_DEX }
                 .forEach {
                     val entry = ZipEntry(transformClassName(index++))
