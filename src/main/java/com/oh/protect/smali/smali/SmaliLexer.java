@@ -1,5 +1,5 @@
 // Generated from /Users/zhouzhenliang/source/shine/console-smaliparser/src/main/antlr4/SmaliLexer.g4 by ANTLR 4.13.1
-package com.oh.protect.smali;
+package com.oh.protect.smali.smali;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

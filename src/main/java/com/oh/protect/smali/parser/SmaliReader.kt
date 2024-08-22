@@ -1,9 +1,9 @@
-package com.oh.protect.smaliparser
+package com.oh.protect.smali.parser
 
-import com.oh.protect.common.LexerErrorHandler
-import com.oh.protect.common.PaserErrorHandler
-import com.oh.protect.smali.SmaliLexer
-import com.oh.protect.smali.SmaliParser
+import com.oh.protect.smali.LexerErrorHandler
+import com.oh.protect.smali.PaserErrorHandler
+import com.oh.protect.smali.smali.SmaliLexer
+import com.oh.protect.smali.smali.SmaliParser
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import java.io.File

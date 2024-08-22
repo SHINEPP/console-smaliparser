@@ -1,4 +1,4 @@
-package com.oh.protect.smaliparser
+package com.oh.protect.smali.parser
 
 import java.io.File
 

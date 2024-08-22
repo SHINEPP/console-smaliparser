@@ -5,7 +5,7 @@ import com.oh.protect.apk.zip.ZipAlignCommand
 import com.oh.protect.apk.zip.ZipHandlerFactory
 import com.oh.protect.dex.DexProcessor
 import com.oh.protect.model.copyToWithClose
-import com.oh.protect.smaliparser.SmaliReader
+import com.oh.protect.smali.parser.SmaliReader
 import java.io.File
 import java.io.InputStream
 import java.util.regex.Pattern

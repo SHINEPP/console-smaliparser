@@ -1,5 +1,5 @@
 // Generated from /Users/zhouzhenliang/source/shine/console-smaliparser/src/main/antlr4/SmaliParser.g4 by ANTLR 4.13.1
-package com.oh.protect.smali;
+package com.oh.protect.smali.smali;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

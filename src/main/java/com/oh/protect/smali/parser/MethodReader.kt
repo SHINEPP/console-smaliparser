@@ -1,10 +1,10 @@
-package com.oh.protect.smaliparser
+package com.oh.protect.smali.parser
 
-import com.oh.protect.smalimethod.SmaliMethodLexer
-import com.oh.protect.smalimethod.SmaliMethodParser
+import com.oh.protect.smali.smalimethod.SmaliMethodLexer
+import com.oh.protect.smali.smalimethod.SmaliMethodParser
 import org.antlr.v4.runtime.*
-import com.oh.protect.common.LexerErrorHandler
-import com.oh.protect.common.PaserErrorHandler
+import com.oh.protect.smali.LexerErrorHandler
+import com.oh.protect.smali.PaserErrorHandler
 
 class MethodReader(private val content: String) {
 

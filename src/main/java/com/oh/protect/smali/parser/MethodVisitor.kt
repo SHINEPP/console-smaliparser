@@ -1,7 +1,7 @@
-package com.oh.protect.smaliparser
+package com.oh.protect.smali.parser
 
-import com.oh.protect.smalimethod.SmaliMethodParser
-import com.oh.protect.smalimethod.SmaliMethodParserBaseVisitor
+import com.oh.protect.smali.smalimethod.SmaliMethodParser
+import com.oh.protect.smali.smalimethod.SmaliMethodParserBaseVisitor
 
 class MethodVisitor(private val content: String) : SmaliMethodParserBaseVisitor<Int?>() {
 

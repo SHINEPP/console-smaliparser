@@ -1,7 +1,7 @@
-package com.oh.protect.smaliparser
+package com.oh.protect.smali.parser
 
-import com.oh.protect.smali.SmaliParser
-import com.oh.protect.smali.SmaliParserBaseVisitor
+import com.oh.protect.smali.smali.SmaliParser
+import com.oh.protect.smali.smali.SmaliParserBaseVisitor
 
 
 class SmaliVisitor : SmaliParserBaseVisitor<Int?>() {

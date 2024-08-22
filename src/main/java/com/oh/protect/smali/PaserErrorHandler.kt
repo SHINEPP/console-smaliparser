@@ -1,11 +1,11 @@
-package com.oh.protect.common
+package com.oh.protect.smali
 
 import org.antlr.v4.runtime.BaseErrorListener
 import org.antlr.v4.runtime.RecognitionException
 import org.antlr.v4.runtime.Recognizer
 
-class LexerErrorHandler : BaseErrorListener() {
+class PaserErrorHandler : BaseErrorListener() {
     override fun syntaxError(recognizer: Recognizer<*, *>?, offendingSymbol: Any?, line: Int, charPositionInLine: Int, msg: String?, e: RecognitionException?) {
-        throw RuntimeException("Method: Lexer error, position:[$line,$charPositionInLine], $msg")
+        throw RuntimeException("Method: Parser error, position:[$line,$charPositionInLine], $msg")
     }
 }
