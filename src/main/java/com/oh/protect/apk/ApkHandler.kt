@@ -4,6 +4,7 @@ import com.oh.protect.apk.zip.IZipHandler
 import com.oh.protect.apk.zip.ZipHandlerFactory
 import com.oh.protect.dex.DexProcessor
 import com.oh.protect.io.inputStream
+import com.oh.protect.parser.SmaliReader
 import java.io.File
 import java.io.InputStream
 import java.util.regex.Pattern
@@ -100,19 +101,32 @@ class ApkHandler(apkPath: String) {
                         .replace(File.separatorChar, '.')
 
                     val subPath = dir.name + File.separatorChar + classPath.replace('.', File.separatorChar) + ".$EXTENSION_SMALI"
-                    val newSmali = if (isDynamicSmali(classPath)) {
-                        File(smaliDynamicDir, subPath)
+                    val dynamic = isDynamicSmali(classPath)
+                    if (dynamic) {
+                        println("class: $classPath")
+                        val newSmali = File(smaliDynamicDir, subPath)
+                        newSmali.parentFile.mkdirs()
+                        smali.inputStream().copyTo(newSmali.outputStream())
+                        handleDynamicSmali(smali, File(smaliKeepDir, subPath))
                     } else {
-                        File(smaliKeepDir, subPath)
+                        val newSmali = File(smaliKeepDir, subPath)
+                        newSmali.parentFile.mkdirs()
+                        smali.inputStream().copyTo(newSmali.outputStream())
                     }
-                    newSmali.parentFile.mkdirs()
-                    smali.inputStream().copyTo(newSmali.outputStream())
                 }
         }
     }
 
     private fun isDynamicSmali(classPath: String): Boolean {
         return classPath.startsWith("com.oh.master.")
+                || classPath.startsWith("com.mars.opt.")
+                || classPath.startsWith("com.ne.up.zw.")
+    }
+
+    private fun handleDynamicSmali(inFile: File, outFile: File) {
+        val reader = SmaliReader(inFile)
+        val smali = reader.read()
+        println("==========+> ${smali.superDef}")
     }
 
     private fun transformSmaliToDex() {
