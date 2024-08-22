@@ -6,6 +6,8 @@ group = "com.oh.apkprotector"
 version = "1.0"
 
 dependencies {
+    // R8
+    implementation("com.android.tools:r8:8.1.56")
 
     // dex & smali
     implementation("com.android.tools.smali:smali:3.0.3")

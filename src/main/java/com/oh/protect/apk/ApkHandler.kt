@@ -108,36 +108,32 @@ class ApkHandler(apkPath: String) {
 
                     val subPath = dir.name + File.separatorChar + classPath.replace('.', File.separatorChar) + ".$EXTENSION_SMALI"
                     val dynamic = isDynamicSmali(classPath)
+                    val keepSmali = File(smaliKeepDir, subPath)
                     if (dynamic) {
-                        println("class: $classPath")
                         val newSmali = File(smaliDynamicDir, subPath)
                         newSmali.parentFile.mkdirs()
                         smali.inputStream().copyToWithClose(newSmali.outputStream())
-                        //handleDynamicSmali(smali, File(smaliKeepDir, subPath))
+                        handleDynamicSmali(classPath, smali, File(smaliKeepDir, subPath))
                     } else {
-                        val newSmali = File(smaliKeepDir, subPath)
-                        newSmali.parentFile.mkdirs()
-                        smali.inputStream().copyToWithClose(newSmali.outputStream())
+                        keepSmali.parentFile.mkdirs()
+                        smali.inputStream().copyToWithClose(keepSmali.outputStream())
                     }
                 }
         }
     }
 
     private fun isDynamicSmali(classPath: String): Boolean {
-        if (classPath == "com.ne.up.zw.t1") return false
-        if (classPath == "com.ne.up.zw.y") return false
-        if (classPath == "com.ne.up.zw.q") return false
-        if (classPath == "com.oh.master.export.HuaweiProvider") return false
-
         return classPath.startsWith("com.oh.master.")
                 || classPath.startsWith("com.mars.opt.")
                 || classPath.startsWith("com.ne.up.zw.")
     }
 
-    private fun handleDynamicSmali(inFile: File, outFile: File) {
-        val reader = SmaliReader(inFile)
+    private fun handleDynamicSmali(classPath: String, smaliFile: File, keepSmaliFile: File) {
+        val reader = SmaliReader(smaliFile)
         val smali = reader.read()
-        println("==========+> ${smali.superDef}")
+        val superClass = smali.superDef.split(" ").last()
+        val implements = smali.implements.joinToString(",")
+        println("class = $classPath, super = $superClass interface = {$implements}")
     }
 
     private fun transformSmaliToDex() {
@@ -184,6 +180,7 @@ class ApkHandler(apkPath: String) {
             }
         }
 
+        println("zipalign apk")
         ZipAlignCommand(outApk, alignApk).execute()
     }
 

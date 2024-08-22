@@ -1,5 +1,9 @@
 package com.oh.protect.dex
 
+import com.android.tools.r8.CompilationMode
+import com.android.tools.r8.D8
+import com.android.tools.r8.D8Command
+import com.android.tools.r8.OutputMode
 import com.android.tools.smali.baksmali.Baksmali
 import com.android.tools.smali.baksmali.BaksmaliOptions
 import com.android.tools.smali.dexlib2.DexFileFactory
@@ -11,7 +15,9 @@ import kotlin.math.min
 
 class DexProcessor {
 
-    private val jobCount = min(Runtime.getRuntime().availableProcessors(), 6)
+    companion object {
+        private val jobCount = min(Runtime.getRuntime().availableProcessors(), 6)
+    }
 
     /**
      *  dex转smali
@@ -45,5 +51,20 @@ class DexProcessor {
         smaliOptions.apiLevel = opcodes.api
         smaliOptions.outputDexFile = dex.path
         Smali.assemble(smaliOptions, smaliDir.path)
+    }
+
+    /**
+     *  jar转dex
+     */
+    fun jarToDex(jar: File, dex: File) {
+        val androidJar = File("/Users/zhouzhenliang/Library/Android/sdk/platforms/android-34/android.jar")
+        D8.run(D8Command.builder()
+            .setMinApiLevel(24)
+            .setMode(CompilationMode.RELEASE)
+            .setIntermediate(true)
+            .addProgramFiles(jar.toPath())
+            .setOutput(dex.toPath(), OutputMode.DexIndexed)
+            .addLibraryFiles(androidJar.toPath())
+            .build())
     }
 }
