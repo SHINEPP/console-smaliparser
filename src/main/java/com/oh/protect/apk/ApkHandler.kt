@@ -4,6 +4,7 @@ import com.oh.protect.apk.zip.IZipHandler
 import com.oh.protect.apk.zip.ZipHandlerFactory
 import com.oh.protect.dex.DexProcessor
 import com.oh.protect.io.inputStream
+import com.oh.protect.apk.zip.ZipAlignCommand
 import com.oh.protect.model.copyToWithClose
 import com.oh.protect.parser.SmaliReader
 import java.io.File
@@ -154,6 +155,7 @@ class ApkHandler(apkPath: String) {
     private fun serializeApk() {
         println("serialize apk")
         val outApk = File(outputApkDir, apk.name)
+        val alignApk = File(outputApkDir, apk.nameWithoutExtension + "_aligned." + apk.extension)
         val handlers = ZipHandlerFactory.createHandlers()
         ZipOutputStream(outApk.outputStream()).use { outputStream ->
             ZipFile(apk).use {
@@ -182,6 +184,8 @@ class ApkHandler(apkPath: String) {
                     .processZipEntry(entry, inputStream, outputStream)
             }
         }
+
+        ZipAlignCommand(outApk, alignApk).execute()
     }
 
     private fun createEncodeDynamicDexZip(handlers: List<IZipHandler>): InputStream {
