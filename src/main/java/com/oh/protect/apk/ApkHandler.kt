@@ -124,6 +124,10 @@ class ApkHandler(apkPath: String) {
     }
 
     private fun isDynamicSmali(classPath: String): Boolean {
+        if (classPath == "com.ne.up.zw.t1") return false
+        if (classPath == "com.ne.up.zw.y") return false
+        if (classPath == "com.ne.up.zw.q") return false
+
         return classPath.startsWith("com.oh.master.")
                 || classPath.startsWith("com.mars.opt.")
                 || classPath.startsWith("com.ne.up.zw.")
