@@ -1,4 +1,4 @@
-package com.oh.protect.parser
+package com.oh.protect.smaliparser
 
 import com.oh.protect.common.LexerErrorHandler
 import com.oh.protect.common.PaserErrorHandler

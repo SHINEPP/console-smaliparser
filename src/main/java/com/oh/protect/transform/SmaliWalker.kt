@@ -1,6 +1,6 @@
 package com.oh.protect.transform
 
-import com.oh.protect.parser.SmaliProcessor
+import com.oh.protect.smaliparser.SmaliProcessor
 import java.io.File
 
 class SmaliWalker(private val smaliDir: File) {

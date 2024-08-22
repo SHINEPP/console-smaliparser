@@ -1,12 +1,11 @@
 package com.oh.protect.apk
 
 import com.oh.protect.apk.zip.IZipHandler
+import com.oh.protect.apk.zip.ZipAlignCommand
 import com.oh.protect.apk.zip.ZipHandlerFactory
 import com.oh.protect.dex.DexProcessor
-import com.oh.protect.io.inputStream
-import com.oh.protect.apk.zip.ZipAlignCommand
 import com.oh.protect.model.copyToWithClose
-import com.oh.protect.parser.SmaliReader
+import com.oh.protect.smaliparser.SmaliReader
 import java.io.File
 import java.io.InputStream
 import java.util.regex.Pattern
@@ -79,7 +78,7 @@ class ApkHandler(apkPath: String) {
                 if (matcher.find()) {
                     println("extract dex: $name")
                     File(dexDir, name).outputStream().use { out ->
-                        it.inputStream(name).copyTo(out)
+                        it.getInputStream(entry).copyTo(out)
                     }
                 }
             }
