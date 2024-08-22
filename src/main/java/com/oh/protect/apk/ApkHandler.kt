@@ -4,6 +4,7 @@ import com.oh.protect.apk.zip.IZipHandler
 import com.oh.protect.apk.zip.ZipHandlerFactory
 import com.oh.protect.dex.DexProcessor
 import com.oh.protect.io.inputStream
+import com.oh.protect.model.copyToWithClose
 import com.oh.protect.parser.SmaliReader
 import java.io.File
 import java.io.InputStream
@@ -76,7 +77,9 @@ class ApkHandler(apkPath: String) {
                 val matcher = pattern.matcher(name)
                 if (matcher.find()) {
                     println("extract dex: $name")
-                    it.inputStream(name).copyTo(File(dexDir, name).outputStream())
+                    File(dexDir, name).outputStream().use { out ->
+                        it.inputStream(name).copyTo(out)
+                    }
                 }
             }
         }
@@ -109,12 +112,12 @@ class ApkHandler(apkPath: String) {
                         println("class: $classPath")
                         val newSmali = File(smaliDynamicDir, subPath)
                         newSmali.parentFile.mkdirs()
-                        smali.inputStream().copyTo(newSmali.outputStream())
-                        handleDynamicSmali(smali, File(smaliKeepDir, subPath))
+                        smali.inputStream().copyToWithClose(newSmali.outputStream())
+                        //handleDynamicSmali(smali, File(smaliKeepDir, subPath))
                     } else {
                         val newSmali = File(smaliKeepDir, subPath)
                         newSmali.parentFile.mkdirs()
-                        smali.inputStream().copyTo(newSmali.outputStream())
+                        smali.inputStream().copyToWithClose(newSmali.outputStream())
                     }
                 }
         }
