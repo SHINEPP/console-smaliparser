@@ -17,6 +17,9 @@ class ApkHandler(apkPath: String) {
     companion object {
         private const val EXTENSION_DEX = "dex"
         private const val EXTENSION_SMALI = "smali"
+
+        private const val AES_KEY = "aoivgnafoeanvoai"
+        private const val ASSETS_DYNAMIC_DEX_ZIP_NAME = "fab924bcbaacacd28eadec7e"
     }
 
     private val apk = File(apkPath)
@@ -166,7 +169,7 @@ class ApkHandler(apkPath: String) {
                 }
 
             createEncodeDynamicDexZip(handlers).use { inputStream ->
-                val entry = ZipEntry("assets/fab924bcbaacacd28eadec7e")
+                val entry = ZipEntry("assets/$ASSETS_DYNAMIC_DEX_ZIP_NAME")
                 ZipHandlerFactory.getHandler(handlers, entry)
                     .processZipEntry(entry, inputStream, outputStream)
             }
@@ -185,7 +188,7 @@ class ApkHandler(apkPath: String) {
                         .processZipEntry(entry, it.inputStream(), outputStream)
                 }
         }
-        return AesUtils.encode("aoivgnafoeanvoai", dexZip.inputStream())
+        return AesUtils.encode(AES_KEY, dexZip.inputStream())
     }
 
     private fun transformClassName(index: Int): String {
