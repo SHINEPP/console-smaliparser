@@ -16,12 +16,6 @@ class ZipDefaultHandler : IZipHandler {
         entry.method = ZipEntry.DEFLATED
         outputStream.putNextEntry(entry)
         outputStream.write(data)
-
-        val paddingSize = (4 - (data.size % 4)) % 4
-        for (i in 0 until paddingSize) {
-            outputStream.write(0)
-        }
-
         outputStream.closeEntry()
     }
 }

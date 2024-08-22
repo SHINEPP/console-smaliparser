@@ -127,6 +127,7 @@ class ApkHandler(apkPath: String) {
         if (classPath == "com.ne.up.zw.t1") return false
         if (classPath == "com.ne.up.zw.y") return false
         if (classPath == "com.ne.up.zw.q") return false
+        if (classPath == "com.oh.master.export.HuaweiProvider") return false
 
         return classPath.startsWith("com.oh.master.")
                 || classPath.startsWith("com.mars.opt.")

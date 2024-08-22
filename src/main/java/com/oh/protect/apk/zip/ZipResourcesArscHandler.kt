@@ -16,17 +16,11 @@ class ZipResourcesArscHandler : IZipHandler {
         val manifestCrc = CRC32()
         manifestCrc.update(data)
         val entry = ZipEntry(zipEntry.name)
-        entry.size = data.size.toLong()
         entry.method = ZipEntry.STORED
+        entry.size = data.size.toLong()
         entry.setCrc(manifestCrc.value)
         outputStream.putNextEntry(entry)
         outputStream.write(data)
-
-        val paddingSize = (4 - (data.size % 4)) % 4
-        for (i in 0 until paddingSize) {
-            outputStream.write(0)
-        }
-
         outputStream.closeEntry()
     }
 }

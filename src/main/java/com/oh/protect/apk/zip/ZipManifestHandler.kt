@@ -16,18 +16,11 @@ class ZipManifestHandler : IZipHandler {
         val data = inputStream.readBytes()
         val manifestCrc = CRC32()
         manifestCrc.update(data)
-        val entry = ZipEntry(zipEntry.name)
-        entry.size = data.size.toLong()
-        entry.compressedSize = -1
-        entry.setCrc(manifestCrc.value)
-        outputStream.putNextEntry(entry)
+        zipEntry.size = data.size.toLong()
+        zipEntry.compressedSize = -1
+        zipEntry.setCrc(manifestCrc.value)
+        outputStream.putNextEntry(zipEntry)
         outputStream.write(data)
-
-        val paddingSize = (4 - (data.size % 4)) % 4
-        for (i in 0 until paddingSize) {
-            outputStream.write(0)
-        }
-
         outputStream.closeEntry()
     }
 }
