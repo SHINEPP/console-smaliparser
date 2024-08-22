@@ -1,9 +1,11 @@
 package com.oh.protect.apk
 
+import com.oh.protect.apk.zip.IZipHandler
 import com.oh.protect.apk.zip.ZipHandlerFactory
 import com.oh.protect.dex.DexProcessor
 import com.oh.protect.io.inputStream
 import java.io.File
+import java.io.InputStream
 import java.util.regex.Pattern
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
@@ -28,6 +30,7 @@ class ApkHandler(apkPath: String) {
     private val dexKeepDir = File(intermediatesDir, "dex_keep")
     private val dexDynamicDir = File(intermediatesDir, "dex_dynamic")
     private val outputApkDir = File(outputsDir, "apk")
+    private val outputDynamicDir = File(outputsDir, "dynamic")
 
     private val pattern = Pattern.compile("^classes(\\d*)\\.dex\$")
 
@@ -39,6 +42,7 @@ class ApkHandler(apkPath: String) {
         dexKeepDir.deleteRecursively()
         dexDynamicDir.deleteRecursively()
         outputApkDir.deleteRecursively()
+        outputDynamicDir.deleteRecursively()
 
         buildDir.mkdirs()
         dexDir.mkdirs()
@@ -48,6 +52,7 @@ class ApkHandler(apkPath: String) {
         dexKeepDir.mkdirs()
         dexDynamicDir.mkdirs()
         outputApkDir.mkdirs()
+        outputDynamicDir.mkdirs()
     }
 
     fun execute() {
@@ -146,6 +151,18 @@ class ApkHandler(apkPath: String) {
                         .processZipEntry(entry, it.inputStream(), outputStream)
                 }
 
+            createEncodeDynamicDexZip(handlers).use { inputStream ->
+                val entry = ZipEntry("assets/fab924bcbaacacd28eadec7e")
+                ZipHandlerFactory.getHandler(handlers, entry)
+                    .processZipEntry(entry, inputStream, outputStream)
+            }
+        }
+    }
+
+    private fun createEncodeDynamicDexZip(handlers: List<IZipHandler>): InputStream {
+        val dexZip = File(outputDynamicDir, "dynamic_dex.zip")
+        ZipOutputStream(dexZip.outputStream()).use { outputStream ->
+            var index = 1
             dexDynamicDir.walk()
                 .filter { it.isFile && it.extension == EXTENSION_DEX }
                 .forEach {
@@ -154,6 +171,7 @@ class ApkHandler(apkPath: String) {
                         .processZipEntry(entry, it.inputStream(), outputStream)
                 }
         }
+        return AesUtils.encode("aoivgnafoeanvoai", dexZip.inputStream())
     }
 
     private fun transformClassName(index: Int): String {
