@@ -8,9 +8,8 @@ class DexProcessorTest {
 
     @Test
     fun dexToSmali() {
-        val rootDir = "/Users/zhouzhenliang/Desktop/zz_protector/temp"
-        val dex = File("/Users/zhouzhenliang/Desktop/apk6/ttt-daemon-out/a_output/aaaaa_78304f8000_1059c2.dex")
-        val outDir = File("/Users/zhouzhenliang/Desktop/apk6/ttt-daemon-out/a_output/aaaaa_78304f8000_1059c2_smali")
+        val dex = File("/Users/zhouzhenliang/source/shine/lib-daemongp/libdaemon/build/outputs/aar/classes_1.dex")
+        val outDir = File("/Users/zhouzhenliang/source/shine/lib-daemongp/libdaemon/build/outputs/aar/classes_1")
         DexProcessor().dexToSmali(dex, outDir)
     }
 
