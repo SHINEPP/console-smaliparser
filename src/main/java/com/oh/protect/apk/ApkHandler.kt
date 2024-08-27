@@ -37,7 +37,8 @@ class ApkHandler(apkPath: String) {
     private val outputApkDir = File(outputsDir, "apk")
     private val outputDynamicDir = File(outputsDir, "dynamic")
 
-    private val pattern = Pattern.compile("^classes(\\d*)\\.dex\$")
+    private val dexPattern = Pattern.compile("^classes(\\d*)\\.dex\$")
+    private val signPattern = Pattern.compile("^META-INF(.*)\\.(SF|RSA|MF)\$")
 
     init {
         dexDir.deleteRecursively()
@@ -74,7 +75,7 @@ class ApkHandler(apkPath: String) {
         ZipFile(apk).use {
             for (entry in it.entries()) {
                 val name = entry.name
-                val matcher = pattern.matcher(name)
+                val matcher = dexPattern.matcher(name)
                 if (matcher.find()) {
                     println("extract dex: $name")
                     File(dexDir, name).outputStream().use { out ->
@@ -159,10 +160,15 @@ class ApkHandler(apkPath: String) {
         ZipOutputStream(outApk.outputStream()).use { outputStream ->
             ZipFile(apk).use {
                 for (entry in it.entries()) {
-                    val matcher = pattern.matcher(entry.name)
+                    val matcher = dexPattern.matcher(entry.name)
                     if (matcher.find()) {
                         continue
                     }
+                    val matcher2 = signPattern.matcher(entry.name)
+                    if (matcher2.find()) {
+                        continue
+                    }
+
                     ZipHandlerFactory.getHandler(handlers, entry)
                         .processZipEntry(entry, it.getInputStream(entry), outputStream)
                 }
