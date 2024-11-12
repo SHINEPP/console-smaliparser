@@ -10,7 +10,7 @@ import java.io.File
 
 class SmaliReader(private val file: File) {
 
-    fun read(): Smali {
+    fun read(): SmaliModel {
         val streams = CharStreams.fromFileName(file.path)
         val lexer = SmaliLexer(streams)
         lexer.removeErrorListeners()
@@ -23,6 +23,6 @@ class SmaliReader(private val file: File) {
 
         val visitor = SmaliVisitor()
         visitor.visit(parser.file())
-        return visitor.crateSmaliClass()
+        return visitor.exportSmali()
     }
 }

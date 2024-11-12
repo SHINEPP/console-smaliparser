@@ -2,7 +2,7 @@ package com.oh.protect.smali.parser
 
 import java.io.File
 
-class SmaliWriter(private val smali: Smali) {
+class SmaliWriter(private val smaliModel: SmaliModel) {
 
     fun write(file: File) {
         file.parentFile?.mkdirs()
@@ -14,36 +14,36 @@ class SmaliWriter(private val smali: Smali) {
     }
 
     private fun getSmaliClassInfo(): String {
-        return "${smali.classDef}\n" +
-                "${smali.superDef}\n" +
-                "${smali.sourceDef}\n"
+        return "${smaliModel.classDef}\n" +
+                "${smaliModel.superDef}\n" +
+                "${smaliModel.sourceDef}\n"
     }
 
     private fun getSmaliImplements(): String {
-        if (smali.implements.isEmpty()) {
+        if (smaliModel.implements.isEmpty()) {
             return ""
         }
-        return "\n" + smali.implements.joinToString("\n")
+        return "\n" + smaliModel.implements.joinToString("\n")
     }
 
     private fun getSmaliAnnotations(): String {
-        if (smali.annotations.isEmpty()) {
+        if (smaliModel.annotations.isEmpty()) {
             return ""
         }
-        return "\n\n" + smali.annotations.joinToString("\n\n")
+        return "\n\n" + smaliModel.annotations.joinToString("\n\n")
     }
 
     private fun getSmaliFields(): String {
-        if (smali.fields.isEmpty()) {
+        if (smaliModel.fields.isEmpty()) {
             return ""
         }
-        return "\n\n" + smali.fields.joinToString("\n\n")
+        return "\n\n" + smaliModel.fields.joinToString("\n\n")
     }
 
     private fun getSmaliMethods(): String {
-        if (smali.methods.isEmpty()) {
+        if (smaliModel.methods.isEmpty()) {
             return ""
         }
-        return "\n\n" + smali.methods.joinToString("\n\n")
+        return "\n\n" + smaliModel.methods.joinToString("\n\n")
     }
 }

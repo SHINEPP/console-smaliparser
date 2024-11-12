@@ -1,6 +1,6 @@
 package com.oh.protect.smali.parser
 
-class Smali(
+class SmaliModel(
     val classDef: String,
     val superDef: String,
     val sourceDef: String,

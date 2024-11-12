@@ -14,15 +14,15 @@ class SmaliVisitor : SmaliParserBaseVisitor<Int?>() {
     private val fields = ArrayList<String>()
     private val methods = ArrayList<String>()
 
-    fun crateSmaliClass(): Smali {
-        return Smali(
+    fun exportSmali(): SmaliModel {
+        return SmaliModel(
             classDef = classDef,
             superDef = superDef,
             sourceDef = sourceDef,
             implements = implements,
             annotations = annotations,
             fields = fields,
-            methods = methods.map { MethodReader(it.substringBefore("\n")).read() }
+            methods = methods.map { SmaliMethodReader(it.substringBefore("\n")).read() }
         )
     }
 

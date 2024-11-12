@@ -3,15 +3,15 @@ package com.oh.protect.smali.parser
 import com.oh.protect.smali.smalimethod.SmaliMethodParser
 import com.oh.protect.smali.smalimethod.SmaliMethodParserBaseVisitor
 
-class MethodVisitor(private val content: String) : SmaliMethodParserBaseVisitor<Int?>() {
+class SmaliMethodVisitor(private val content: String) : SmaliMethodParserBaseVisitor<Int?>() {
 
     private val methodIdentifiers = ArrayList<String>()
     private var methodName = ""
     private var paramsSignature = ""
     private var returnSignature = ""
 
-    fun crateSmaliMethod(): Smali.Method {
-        return Smali.Method(
+    fun exportSmaliMethod(): SmaliModel.Method {
+        return SmaliModel.Method(
             method = content,
             methodIdentifiers = methodIdentifiers,
             methodName = methodName,

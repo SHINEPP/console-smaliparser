@@ -6,9 +6,9 @@ import org.antlr.v4.runtime.*
 import com.oh.protect.smali.LexerErrorHandler
 import com.oh.protect.smali.PaserErrorHandler
 
-class MethodReader(private val content: String) {
+class SmaliMethodReader(private val content: String) {
 
-    fun read(): Smali.Method {
+    fun read(): SmaliModel.Method {
         val streams = CharStreams.fromString(content)
         val lexer = SmaliMethodLexer(streams)
         lexer.removeErrorListeners()
@@ -19,8 +19,8 @@ class MethodReader(private val content: String) {
         parser.removeErrorListeners()
         parser.addErrorListener(PaserErrorHandler())
 
-        val visitor = MethodVisitor(content)
+        val visitor = SmaliMethodVisitor(content)
         visitor.visit(parser.method())
-        return visitor.crateSmaliMethod()
+        return visitor.exportSmaliMethod()
     }
 }
